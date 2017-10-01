@@ -51,6 +51,8 @@ main() {
 	then incremental_deploy
 	else initial_deploy
 	fi
+
+	update_repos
 }
 
 remove_files(){
@@ -125,6 +127,14 @@ disable_expanded_output() {
 		set +o xtrace
 		set -o verbose
 	fi
+}
+
+# run script to update repos
+update_repos () {
+  echo "Start to update repos"
+  which node
+  npm install --only=dev
+  node update-repos.js ${GITHUB_TOKEN}
 }
 
 main
